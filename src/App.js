@@ -4,29 +4,37 @@ import axios from 'axios';
 import Header from "./components/Header";
 import Form from "./components/Form";
 import List from "./components/List";
+import Footer from "./components/Footer";
 
 export default function App() {
     const [items, setItems] = useState([]);
-    const [count, setCount] = useState(0);
 
     useEffect(() => {
-        axios.get('http://backend.kinesis.games/test/')
-          .then(response => {setItems(response.data); console.log(response.data)})
-          .catch((error) => {console.log(error);})
-        // eslint-disable-next-line
-    }, [count]);
+        axios.get('https://backend.kinesis.games/test/')
+             .then(response => {setItems(response.data); console.log(response.data)})
+             .catch((error) => console.log(error));
+    }, []);
+
+    function addItem(data) {
+        axios.post('https://backend.kinesis.games/test/add', data)
+             .then(response => console.log(response.data))
+             .catch((error) => console.log(error));
+        setItems(prevItems => [...prevItems, data]);
+    }
 
     function deleteItem(id) {
-        axios.delete('http://backend.kinesis.games/test/' + id)
-             .then(response => console.log(response.data));
+        axios.delete('https://backend.kinesis.games/test/' + id)
+             .then(response => console.log(response.data))
+             .catch((error) => console.log(error));
         setItems(items.filter(el => el._id !== id));
     }
 
     return(
-        <div className="w-screen h-screen mb-4">
+        <div className="mb-4">
             <Header />
-            <Form setCount={setCount} />
+            <Form addItem={addItem} />
             <List items={items} deleteItem={deleteItem} />
+            <Footer />
         </div>
     );
 }

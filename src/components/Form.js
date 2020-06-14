@@ -1,5 +1,4 @@
 import React, {useState} from "react";
-import axios from 'axios';
 
 export default function Form(props) {
     const [title, setTitle] = useState("");
@@ -10,11 +9,14 @@ export default function Form(props) {
 
     const onSubmit = e => {
         e.preventDefault();
-        const updatedTest = {
+        const data = {
             title: title,
             description: desc
         };
-        axios.post('http://backend.kinesis.games/test/add', updatedTest).then(res => {console.log(res.data); props.setCount(prev => prev += 1)});
+        props.addItem(data);
+        
+        setTitle("");
+        setDesc("");
     }
 
     return(
