@@ -27,3 +27,5 @@ yarn-error.log*
 backend/node_modules
 backend/*.lock
 backend/.env
+
+mongo-db/guide.txt
