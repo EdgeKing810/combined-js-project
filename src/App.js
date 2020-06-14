@@ -10,20 +10,20 @@ export default function App() {
     const [items, setItems] = useState([]);
 
     useEffect(() => {
-        axios.get('http://127.0.0.1:27017/test/')
+        axios.get('http://127.0.0.1:9900/test/')
              .then(response => {setItems(response.data); console.log(response.data)})
              .catch((error) => console.log(error));
     }, []);
 
     function addItem(data) {
-        axios.post('http://127.0.0.1:27017/test/add', data)
+        axios.post('http://127.0.0.1:9900/test/add', data)
              .then(response => console.log(response.data))
              .catch((error) => console.log(error));
         setItems(prevItems => [...prevItems, data]);
     }
 
     function deleteItem(id) {
-        axios.delete('http://127.0.0.1:27017/test/' + id)
+        axios.delete('http://127.0.0.1:9900/test/' + id)
              .then(response => console.log(response.data))
              .catch((error) => console.log(error));
         setItems(items.filter(el => el._id !== id));
